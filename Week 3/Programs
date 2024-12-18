@@ -1,0 +1,26 @@
+//Kafia Khan VU21CSEN0300362
+#include <vector>
+#include <queue>
+using namespace std;
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int, vector<int>, greater<int>> minHeap; // Min-heap of size k
+
+        // Insert first k elements into the heap
+        for (int i = 0; i < k; ++i) {
+            minHeap.push(nums[i]);
+        }
+
+        // Process the remaining elements
+        for (int i = k; i < nums.size(); ++i) {
+            if (nums[i] > minHeap.top()) { // Replace if current element is larger
+                minHeap.pop();
+                minHeap.push(nums[i]);
+            }
+        }
+
+        return minHeap.top(); // Root contains the kth largest element
+    }
+};
